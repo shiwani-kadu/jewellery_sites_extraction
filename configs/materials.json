@@ -1,0 +1,110 @@
+{
+    "stones": [
+        "Emeralds",
+        "HyCeram",
+        "Jade",
+        "Mother of Pearl",
+        "Onyx",
+        "Pink Opal",
+        "Red Agate",
+        "Ruby",
+        "Sapphire",
+        "Malachite",
+        "Black Ceramic",
+        "Turquoise",
+        "Carnelian",
+
+        "rubis",
+        "céramique noire",
+
+        "schwarze Keramik",
+        "Rubin",
+        "镶嵌红宝石",
+        "黑色陶瓷",
+
+        "블랙 세라믹",
+        "루비로",
+
+        "蓝宝石",
+        "祖母绿",
+        "翡翠",
+        "珍珠母贝",
+        "缟玛瑙",
+        "蛋白石",
+        "红玛瑙",
+        "红宝石",
+
+        "カーネリアン",
+        "マラカイト",
+        "マラカイト",
+        "ブラックセラミック",
+        "ターコイズ",
+        "サファイア",
+        "카넬리안",
+        "공작석",
+        "블랙 세라믹",
+        "터키 옥"
+    ],
+    "metals": [
+        "Platinum",
+        "Rose Gold",
+        "Sterling Silver",
+        "White Gold",
+        "Yellow Gold",
+        "Gold",
+        "Silver",
+
+        "Or blanc",
+        "Or jaune",
+        "OR BEIGE",
+        "Or rose",
+
+        "BEIGEGOLD",
+        "Weißgold",
+        "Rotgold",
+
+        "金",
+
+        "핑크 골드",
+        "화이트 골드",
+        "핑크 골드",
+
+        "铂金",
+        "玫瑰金",
+        "纯银",
+        "白金",
+        "黄金",
+        "ピンクゴールド",
+        "ホワイトゴールド"
+    ],
+    "colors": [
+        "Yellow",
+        "Rose",
+        "Red",
+        "White",
+        "Black",
+        "Blue",
+        "Red",
+        "Green",
+        "Pink",
+        "Peach",
+
+        "Blanc",
+        "Jaune",
+
+        "Weiß",
+        "Gelb",
+        "Rot",
+
+        "黄",
+        "玫瑰",
+        "玫",
+        "白",
+
+        "핑크",
+        "화이트",
+        "핑크",
+        "ピンク",
+        "ホワイト"
+    ]
+}
