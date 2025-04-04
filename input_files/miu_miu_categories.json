@@ -1,0 +1,84 @@
+{
+    "us": [
+        "https://www.miumiu.com/us/en/fashion-jewellery/earrings/c/10236US",
+        "https://www.miumiu.com/us/en/fashion-jewellery/bracelets/c/10237US",
+        "https://www.miumiu.com/us/en/fashion-jewellery/necklaces/c/10239US",
+        "https://www.miumiu.com/us/en/fashion-jewellery/anklets/c/10241US"
+    ],
+    "uk": [
+        "https://www.miumiu.com/gb/en/fashion-jewellery/earrings/c/10236EU",
+        "https://www.miumiu.com/gb/en/fashion-jewellery/bracelets/c/10237EU",
+        "https://www.miumiu.com/gb/en/fashion-jewellery/necklaces/c/10239EU",
+        "https://www.miumiu.com/gb/en/fashion-jewellery/rings-and-brooches/c/10240EU",
+        "https://www.miumiu.com/gb/en/fashion-jewellery/anklets/c/10241EU"
+    ],
+    "au": [
+        "https://www.miumiu.com/au/en/fashion-jewellery/earrings/c/10236AU",
+        "https://www.miumiu.com/au/en/fashion-jewellery/bracelets/c/10237AU",
+        "https://www.miumiu.com/au/en/fashion-jewellery/necklaces/c/10239AU",
+        "https://www.miumiu.com/au/en/fashion-jewellery/rings-and-brooches/c/10240AU",
+        "https://www.miumiu.com/au/en/fashion-jewellery/anklets/c/10241AU"
+    ],
+    "sg": [
+        "https://www.miumiu.com/sg/en/fashion-jewellery/earrings/c/10236SG",
+        "https://www.miumiu.com/sg/en/fashion-jewellery/bracelets/c/10237SG",
+        "https://www.miumiu.com/sg/en/fashion-jewellery/necklaces/c/10239SG",
+        "https://www.miumiu.com/sg/en/fashion-jewellery/rings-and-brooches/c/10240SG",
+        "https://www.miumiu.com/sg/en/fashion-jewellery/anklets/c/10241SG"
+    ],
+    "hk": [
+        "https://www.miumiu.com/hk/en/fashion-jewellery/earrings/c/10236HK",
+        "https://www.miumiu.com/hk/en/fashion-jewellery/bracelets/c/10237HK",
+        "https://www.miumiu.com/hk/en/fashion-jewellery/necklaces/c/10239HK",
+        "https://www.miumiu.com/hk/en/fashion-jewellery/rings-and-brooches/c/10240HK",
+        "https://www.miumiu.com/hk/en/fashion-jewellery/anklets/c/10241HK"
+    ],
+    "ae": [
+        "https://www.miumiu.com/ae/en/fashion-jewellery/earrings/c/10236AE",
+        "https://www.miumiu.com/ae/en/fashion-jewellery/bracelets/c/10237AE",
+        "https://www.miumiu.com/ae/en/fashion-jewellery/necklaces/c/10239AE",
+        "https://www.miumiu.com/ae/en/fashion-jewellery/rings-and-brooches/c/10240AE",
+        "https://www.miumiu.com/ae/en/fashion-jewellery/anklets/c/10241AE"
+    ],
+    "fr": [
+        "https://www.miumiu.com/fr/en/fashion-jewellery/earrings/c/10236EU",
+        "https://www.miumiu.com/fr/en/fashion-jewellery/bracelets/c/10237EU",
+        "https://www.miumiu.com/fr/en/fashion-jewellery/necklaces/c/10239EU",
+        "https://www.miumiu.com/fr/en/fashion-jewellery/rings-and-brooches/c/10240EU",
+        "https://www.miumiu.com/fr/en/fashion-jewellery/anklets/c/10241EU"
+    ],
+    "ch": [
+        "https://www.miumiu.com/ch/en/fashion-jewellery/earrings/c/10236EU",
+        "https://www.miumiu.com/ch/en/fashion-jewellery/bracelets/c/10237EU",
+        "https://www.miumiu.com/ch/en/fashion-jewellery/necklaces/c/10239EU",
+        "https://www.miumiu.com/ch/en/fashion-jewellery/rings-and-brooches/c/10240EU",
+        "https://www.miumiu.com/ch/en/fashion-jewellery/anklets/c/10241EU"
+    ],
+    "cn": [
+        "https://www.miumiu.cn/cn/en/fashion-jewellery/earrings/c/10236CN",
+        "https://www.miumiu.cn/cn/en/fashion-jewellery/bracelets/c/10237CN",
+        "https://www.miumiu.cn/cn/en/fashion-jewellery/necklaces/c/10239CN",
+        "https://www.miumiu.cn/cn/en/fashion-jewellery/rings-and-brooches/c/10240CN",
+        "https://www.miumiu.cn/cn/en/fashion-jewellery/anklets/c/10241CN"
+    ],
+    "tw": [
+        "https://www.miumiu.com/tw/en/fashion-jewellery/earrings/c/10236TW",
+        "https://www.miumiu.com/tw/en/fashion-jewellery/bracelets/c/10237TW",
+        "https://www.miumiu.com/tw/en/fashion-jewellery/necklaces/c/10239TW",
+        "https://www.miumiu.com/tw/en/fashion-jewellery/rings-and-brooches/c/10240TW",
+        "https://www.miumiu.com/tw/en/fashion-jewellery/anklets/c/10241TW"
+    ],
+    "jp": [
+        "https://www.miumiu.com/jp/en/fashion-jewellery/earrings/c/10236JP",
+        "https://www.miumiu.com/jp/en/fashion-jewellery/bracelets/c/10237JP",
+        "https://www.miumiu.com/jp/en/fashion-jewellery/necklaces/c/10239JP",
+        "https://www.miumiu.com/jp/en/fashion-jewellery/rings-and-brooches/c/10240JP"
+    ],
+    "kr": [
+        "https://www.miumiu.com/kr/ko/fashion-jewellery/earrings/c/10236KR",
+        "https://www.miumiu.com/kr/ko/fashion-jewellery/bracelets/c/10237KR",
+        "https://www.miumiu.com/kr/ko/fashion-jewellery/necklaces/c/10239KR",
+        "https://www.miumiu.com/kr/ko/fashion-jewellery/rings-and-brooches/c/10240KR",
+        "https://www.miumiu.com/kr/ko/fashion-jewellery/anklets/c/10241KR"
+    ]
+}

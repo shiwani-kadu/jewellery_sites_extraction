@@ -722,6 +722,9 @@ if __name__ == '__main__':
 
     # Save the data to Excel and JSON files
     try:
+        output_folder = '../../output_files/repossi/'
+        os.makedirs(output_folder, exist_ok=True)  # ✅ Ensure directory exists
+
         output_filename = f'../../output_files/repossi/repossi_product_{args.region}_{datetime.datetime.today().strftime("%Y%m%d")}'
         df = pd.DataFrame(data_list)
         desired_columns = [
