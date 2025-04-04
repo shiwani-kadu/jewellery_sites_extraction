@@ -274,8 +274,7 @@ def main():
     args = parser.parse_args()
 
     # Load configuration
-    # token = os.environ.get("scrapedo_token")
-    token = "2d76727898034978a3091185c24a5df27a030fdc3f8"
+    token = os.environ.get("scrapedo_token")
     if not token:
         logging.error("API token not found in environment variables.")
         return

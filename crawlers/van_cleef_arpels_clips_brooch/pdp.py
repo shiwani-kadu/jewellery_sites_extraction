@@ -396,8 +396,8 @@ if __name__ == '__main__':
         logging.error(f"Error loading links: {e}")
         exit(1)
     # links = links[0]
-    # token = os.environ.get("scrapedo_token")
-    token = "2d76727898034978a3091185c24a5df27a030fdc3f8"
+    token = os.environ.get("scrapedo_token")
+
     if not token:
         logging.error("API token not found in environment variables.")
         exit(1)
