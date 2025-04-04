@@ -1,5 +1,3 @@
-import string
-# from curl_cffi import requests
 import requests
 import datetime
 import pandas as pd
@@ -10,7 +8,6 @@ from queue import Queue
 import hashlib
 from lxml import html
 import os
-import random
 import time
 import logging
 import argparse
@@ -117,7 +114,6 @@ def parse_material_data(html_content, description, data, materials_data, region)
         material_data = [description] if "18K" in description else [missing_material.group(0) if missing_material else description]
 
         diamond_data = tree.xpath('//h2//span[@class="visually-hidden"]/../text()[normalize-space()]').getall()
-        # material_data = [description] if [description] else [description_1]
 
         # Parse material data
         for material in material_data:

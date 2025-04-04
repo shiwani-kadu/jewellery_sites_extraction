@@ -1,5 +1,3 @@
-import string
-# from curl_cffi import requests
 import requests
 import datetime
 import pandas as pd
@@ -10,7 +8,6 @@ from queue import Queue
 import hashlib
 from lxml import html
 import os
-import random
 import time
 import logging
 import argparse
@@ -66,11 +63,7 @@ def clean_text(text):
 
 
 def parse_material_data(html_content, description, data, materials_data, region, size_list):
-
-
     size_list3 = [] if not size_list or size_list[0] == "" else size_list
-
-
     result = {
         "size": size_list3,
         "material": [],
@@ -135,11 +128,6 @@ def parse_data(response, materials_data, region, read_flag):
 
         color = j_data.get("color", [])
         color = [color] if isinstance(color, str) else color
-
-        # description = j_data["description"]
-        # description = description + " item " + sku
-
-        # description = (j_data.get("description") or "") + " item " + (str(j_data.get("sku")) if j_data.get("sku") else "")
         description = " ".join(html_content.xpath('(//div[@class="product-details-accordion__content"])[1]//span//text()')).strip()
         if not description:
             description = None
@@ -194,7 +182,7 @@ def parse_data(response, materials_data, region, read_flag):
         logging.error(f"Error parsing data: {e}")
 
 
-def fetch_product_data(link, token, cookies, materials_data, region):
+def fetch_product_data(link, token, materials_data, region):
     SAVE_PAGES = False  # Set to True if you want to save pages
     max_retries = 5
     retry_delay = 1  # Initial delay in seconds
@@ -211,7 +199,6 @@ def fetch_product_data(link, token, cookies, materials_data, region):
                 response = requests.get(
                     f"{link}",
                     headers=headers,
-                    cookies=cookies,
                 )
                 logging.info(f"Attempt {attempt + 1}: Status Code: {response.status_code}")
                 if response.status_code != 200:
@@ -251,12 +238,6 @@ def validate_input_files(region, platform):
 
     return links_file, materials_file
 
-
-def load_cookies(region):
-
-    return {}
-
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Scrape product data from burberry.")
     parser.add_argument("--region", required=True, help="Region code (e.g., 'cn')")
@@ -276,8 +257,6 @@ if __name__ == '__main__':
         logging.error(f"Error loading materials data: {e}")
         exit(1)
 
-    # Load cookies
-    cookies = load_cookies(args.region)
 
     # Load links
     try:
@@ -294,7 +273,7 @@ if __name__ == '__main__':
 
     # Fetch product data concurrently
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-        executor.map(lambda link: fetch_product_data(link, token, cookies, materials_data, args.region), links)
+        executor.map(lambda link: fetch_product_data(link, token,materials_data, args.region), links)
 
     # Convert the queue to a list
     data_list = list(data_queue.queue)

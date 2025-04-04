@@ -1,5 +1,3 @@
-import string
-import numpy as np
 from curl_cffi import requests
 import datetime
 import pandas as pd

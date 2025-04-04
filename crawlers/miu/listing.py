@@ -6,7 +6,6 @@ import random
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 from curl_cffi import requests
-from lxml import html
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 import time
@@ -123,9 +122,7 @@ def parse_links(response, data_list, b_url):
     """
     try:
         sel = Selector(text=response.text)
-        # html_content = html.fromstring(json_data.get('productListPage', ''))
         links = sel.xpath('//ol[@class="grid items-center gap-px grid-cols-2 md:grid-cols-3 std-xl:grid-cols-4 p-0 bg-white"]/li//article/a/@href').getall()
-        # links = [b_url + link for link in links]
         if links:
             data_list.extend(links)
             next = ''.join(sel.xpath('//span[@class="button-link__text relative inline-block px-0 transition ease-in-out delay-300 text-label-big-lg pb-sp-1 font-semibold"]/text()').getall()).strip()
@@ -210,7 +207,6 @@ def process_url(base_url, token, cookies, headers, region):
     b_url = get_base_url(base_url)
     while True:
         target_url = urllib.parse.quote(f"{base_url}/page/{page}")
-        # target_url = "https://2nyr2y6a02-2.algolianet.com/1/indexes/*/queries"
         api_url = f"http://api.scrape.do?token={token}&url={target_url}"
         impersonate_version = random.choice(BROWSER_VERSIONS)
         id_ = base_url.split('/')[-1]

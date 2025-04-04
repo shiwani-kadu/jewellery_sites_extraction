@@ -5,9 +5,7 @@ import os
 import random
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
-# from curl_cffi import requests
 import requests
-from lxml import html
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 import time
@@ -151,9 +149,6 @@ def parse_links(response, data_list, b_url,cookies,headers,impersonate_version):
         No specific exceptions are raised directly, but any exceptions during processing are logged.
     """
     try:
-        # print(response.text)
-        # json_data = response.xpath('//div[@class="m-product-listing"]/a/@href')
-        # html_content = html.fromstring(json_data.get('productListPage', ''))
         response_main = Selector(response.text)
         if '.cn' in b_url:
             get_link_category = response_main.xpath('//a[contains(@href,"/celine-men/jewellery-men/")]/@href').getall()
@@ -189,7 +184,6 @@ def parse_links(response, data_list, b_url,cookies,headers,impersonate_version):
                     response_req = fetch_page(cat_link,cookies,headers,impersonate_version)
                     response = Selector(response_req.text)
                     links = response.xpath('//div[@class="m-product-listing"]/a/@href').getall()
-                    # links = [b_url + link for link in links]
                     links_list = []
                     for link in links:
                         if 'jewellery' in link:
@@ -337,7 +331,6 @@ def main():
         return
 
     # Multithreading to process URLs concurrently
-    # input_urls = input_urls[f'{args.region}']
     all_links = []
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = [

@@ -1,5 +1,3 @@
-import string
-# from curl_cffi import requests
 import requests
 import datetime
 import pandas as pd
@@ -10,7 +8,6 @@ from queue import Queue
 import hashlib
 from lxml import html
 import os
-import random
 import time
 import logging
 import argparse

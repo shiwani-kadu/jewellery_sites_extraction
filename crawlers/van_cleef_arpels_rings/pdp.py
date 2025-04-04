@@ -1,5 +1,3 @@
-import string
-# from curl_cffi import requests
 import requests
 import datetime
 import pandas as pd
@@ -10,7 +8,6 @@ from queue import Queue
 import hashlib
 from lxml import html
 import os
-import random
 import time
 import logging
 import argparse
@@ -439,7 +436,6 @@ if __name__ == '__main__':
             "product_description_3"
         ]
         df = df[desired_columns]
-        # df.fillna("", inplace=True)
         # Preserve original column order while merging duplicates
         df = df.groupby('product_url', as_index=False).agg(lambda x: ', '.join(x.dropna().astype(str).unique()))
         # Ensure 'product_url' stays in its original position

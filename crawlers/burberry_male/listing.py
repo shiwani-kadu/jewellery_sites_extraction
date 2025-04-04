@@ -3,10 +3,8 @@ import json
 import logging
 import os
 import random
-import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 from curl_cffi import requests
-from lxml import html
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 import time
@@ -45,28 +43,6 @@ HEADERS = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
 }
 
-def load_cookies(region):
-    """
-    Loads cookies for a specific region from a JSON configuration file.
-
-    Attempts to open and read the cookies file located in the specified
-    path ('../../configs/cookies/chanel.json'), then retrieves cookies
-    associated with the provided region key. Logs an error and raises
-    the exception if there is any issue during file reading or JSON
-    parsing.
-
-    Parameters:
-        region (str): The region key for which cookies need to be loaded.
-
-    Returns:
-        dict: A dictionary containing cookies associated with the
-        provided region key.
-
-    Raises:
-        Exception: If there is an error during file reading or JSON parsing.
-    """
-    return {}
-
 def get_base_url(url):
     """
     Parses a given URL and constructs the base URL consisting of its scheme and netloc components.
@@ -89,76 +65,6 @@ def get_base_url(url):
     parsed_url = urlparse(url)
     return f"{parsed_url.scheme}://{parsed_url.netloc}"
 
-# def parse_links(response, data_list, b_url):
-#     """
-#     Parses product links from a response, appending them to a provided data list.
-#
-#     This function extracts product links from a provided HTTP response object by parsing JSON
-#     data and converting HTML content to find specific anchor tags. It constructs full links
-#     using a base URL and appends them to the given data list. Additionally, it determines
-#     if there are more pages to process by checking the presence of a "next" key in the JSON data.
-#     If any errors occur during this process, they will be logged and the function will return False.
-#
-#     Arguments:
-#         response (Response): The HTTP response object from which to parse product links.
-#         data_list (list): The list to which parsed product links will be appended.
-#         b_url (str): Base URL used to construct full product links.
-#
-#     Returns:
-#         bool: True if there is a 'next' page according to the JSON data; otherwise, False.
-#
-#     Raises:
-#         No specific exceptions are raised directly, but any exceptions during processing are logged.
-#     """
-#
-#     try:
-#
-#         json_data = response.json()
-#         items = json_data["data"]["products"][0]["items"]
-#
-#         for item in items:
-#             product_id = item.get("id", "N/A")
-#             product_urls = [b_url + item.get("url", "")]  # Always store URLs as a list
-#
-#             price_info = item.get("price", {}).get("current", {})
-#             currency = price_info.get("currency", "N/A")
-#             value = price_info.get("value", "N/A")
-#             total_colors = item.get("numberOfColours", "N/A")
-#             soldout = item.get("types", {}).get("isSoldOut", "N/A")
-#             coming_soon = item.get("types", {}).get("isComingSoon", "N/A")
-#             image_key = item.get("media", {}).get("defaults", {}).get("image", {}).get("imageFallback", "N/A")
-#
-#             color_names = ["N/A"]
-#
-#             if total_colors > 1:
-#                 colors = item.get("alternatives", {}).get("colors", [])
-#
-#                 # Extract color names
-#                 color_names = [color.get("label", "").strip() for color in colors if color.get("label")]
-#
-#                 # Extract product URLs for each color variant
-#                 product_urls = [b_url + color.get("url", "") for color in colors if color.get("url")]
-#
-#             # Append extracted details as dictionary
-#             data_list.append({
-#                 "id": product_id,
-#                 "product_urls": product_urls,  # List of product URLs
-#                 "currency": currency,
-#                 "value": value,
-#                 "total_colors": total_colors,
-#                 "soldout": soldout,
-#                 "coming_soon": coming_soon,
-#                 "colors": color_names,
-#                 "image": image_key
-#             })
-#
-#
-#
-#
-#         return False  # No pagination
-#     except Exception as e:
-#         logging.error(f"Error parsing links: {e}")
-#         return False
 def parse_links(response, data_list, b_url, seen_products):
     try:
         json_data = response.json()
@@ -254,7 +160,7 @@ def fetch_page(url, headers, impersonate_version):
                 logging.error(f"All {max_retries} attempts failed for {url}. Giving up.")
 
 
-def process_url(base_url, token, cookies, headers, region):
+def process_url(base_url, token, headers, region):
     """
     Processes a URL, scrapes paginated content, and aggregates it into a data list.
 
@@ -279,38 +185,11 @@ def process_url(base_url, token, cookies, headers, region):
     
     # ----------------------------------------------------------------------------------
     
-    # data_list = []
-    # page = 1
-    # b_url = get_base_url(base_url)
-    # while True:
-    #     target_url = urllib.parse.quote(f"{base_url}?requestType=ajax&page={page}")
-    #     api_url = f"http://api.scrape.do?token={token}&url={target_url}"
-    #     impersonate_version = random.choice(BROWSER_VERSIONS)
-
-    #     response = fetch_page(api_url, cookies, headers, impersonate_version)
-    #     logging.info(f"{target_url}: {response.status_code}")
-
-    #     if not response:
-    #         break
-
-    #     next_page = parse_links(response, data_list, b_url)
-    #     if not next_page:
-    #         break
-
-    #     page += 1
-
-    # return data_list
-
     data_list = []
     seen_products = set()  # Initialize seen_products here for this URL
 
     page_url = base_url  # First page only
-    # encoded_url = fetch_page(page_url)
-    # encoded_url = urllib.parse.quote(page_url)
-    # url = f"http://api.scrape.do?token={token}&url={encoded_url}"
-
     response = fetch_page(page_url, headers, random.choice(BROWSER_VERSIONS))
-
     if response:
         b_url = get_base_url(base_url)
         parse_links(response, data_list, b_url,seen_products)
@@ -349,11 +228,6 @@ def main():
         logging.error("API token not found in environment variables.")
         return
 
-    try:
-        cookies = load_cookies(args.region)
-    except Exception:
-        return
-
     # Read input URLs from JSON file
     try:
         with open(f'../../input_files/male.json', 'r') as f:
@@ -366,7 +240,7 @@ def main():
     all_links = []
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = [
-            executor.submit(process_url, url, token, cookies, HEADERS, args.region)
+            executor.submit(process_url, url, token,HEADERS, args.region)
             for url in input_urls[args.region]
         ]
         for future in futures:
@@ -397,9 +271,6 @@ def main():
 
     # save urls to a json file
     try:
-        # url_only_list = [item['product_urls'] for item in all_links]
-        # flattened_urls = [url for sublist in url_only_list for url in sublist]
-
         url_only_list = [item['product_urls'] for item in all_links if 'product_urls' in item]
         flattened_urls = [url for sublist in url_only_list for url in sublist]
         flattened_urls = list(set(flattened_urls))  # Remove duplicates

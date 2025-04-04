@@ -3,10 +3,8 @@ import json
 import logging
 import os
 import random
-import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 from curl_cffi import requests
-from lxml import html
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 import time
@@ -209,36 +207,10 @@ def process_url(base_url, token, cookies, headers, region):
     
     # ----------------------------------------------------------------------------------
     
-    # data_list = []
-    # page = 1
-    # b_url = get_base_url(base_url)
-    # while True:
-    #     target_url = urllib.parse.quote(f"{base_url}?requestType=ajax&page={page}")
-    #     api_url = f"http://api.scrape.do?token={token}&url={target_url}"
-    #     impersonate_version = random.choice(BROWSER_VERSIONS)
-
-    #     response = fetch_page(api_url, cookies, headers, impersonate_version)
-    #     logging.info(f"{target_url}: {response.status_code}")
-
-    #     if not response:
-    #         break
-
-    #     next_page = parse_links(response, data_list, b_url)
-    #     if not next_page:
-    #         break
-
-    #     page += 1
-
-    # return data_list
-
     data_list = []
     seen_products = set()  # Initialize seen_products here for this URL
 
     page_url = base_url  # First page only
-    # encoded_url = fetch_page(page_url)
-    # encoded_url = urllib.parse.quote(page_url)
-    # url = f"http://api.scrape.do?token={token}&url={encoded_url}"
-
     response = fetch_page(page_url, headers, random.choice(BROWSER_VERSIONS))
 
     if response:
@@ -320,9 +292,6 @@ def main():
 
     # save urls to a json file
     try:
-        # url_only_list = [item['product_urls'] for item in all_links]
-        # flattened_urls = [url for sublist in url_only_list for url in sublist]
-
         url_only_list = [item['product_urls'] for item in all_links if 'product_urls' in item]
         flattened_urls = [url for sublist in url_only_list for url in sublist]
         flattened_urls = list(set(flattened_urls))  # Remove duplicates

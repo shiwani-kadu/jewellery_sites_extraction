@@ -1,4 +1,3 @@
-import string
 from curl_cffi import requests
 import datetime
 import pandas as pd

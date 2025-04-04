@@ -1,9 +1,7 @@
 import argparse
 import json
 import logging
-import os
 import random
-import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 from curl_cffi import requests
 from lxml import html

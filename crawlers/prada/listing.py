@@ -1,19 +1,10 @@
 import argparse
 import datetime
-import hashlib
 import json
 import logging
 import os
 import random
 from concurrent.futures import ThreadPoolExecutor
-# parser = argparse.ArgumentParser(description="Scrape product links from Prada.")
-# parser.add_argument("--region", required=True, help="Region code (e.g., 'cn')")
-# args = parser.parse_args()
-# if args.region == 'cn':
-#     import requests
-# else:
-#     from curl_cffi import requests
-# from curl_cffi import requests
 import requests
 from lxml import html
 from dotenv import load_dotenv
@@ -129,10 +120,8 @@ def parse_links(response, data_list, b_url):
         No specific exceptions are raised directly, but any exceptions during processing are logged.
     """
     try:
-        # json_data = response.json()
         html_content = html.fromstring(response.text)
         links = html_content.xpath('//a[@class="h-full product-card__link"]/@href')
-        # links = [link for link in links]
         data_list.extend(links)
         return bool(html_content.xpath('//a[@aria-label="Show more"]'))
     except Exception as e:
@@ -232,25 +221,15 @@ def process_url(base_url, token, cookies, headers, region):
     """
     data_list = []
     page = 1
-    # print("base_url : ", base_url)
     b_url = get_base_url(base_url)
-    # print("b_url : ", b_url)
     while True:
-        # target_url = urllib.parse.quote(f"{base_url}/page/{page}")
         target_url = base_url + "/page/" + str(page)
-        # api_url = f"http://api.scrape.do?token={token}&url={target_url}"
         impersonate_version = random.choice(BROWSER_VERSIONS)
 
         response = fetch_page(target_url, cookies, headers, impersonate_version, region)
         logging.info(f"{target_url}: {response.status_code}")
 
         page_hash = 'prada' + "_" + str(region) + "_" + str(page)
-
-        # try:
-        #     hashID = str(int(hashlib.md5(bytes(page_hash, "utf8")).hexdigest(), 32) % (10 ** 32))
-        # except Exception as E:
-        #     hashID = ''
-        #
         os.makedirs(f'../../pages/{datetime.datetime.today().strftime("%Y%m%d")}/prada_pl', exist_ok=True)
         with open(f'../../pages/{datetime.datetime.today().strftime("%Y%m%d")}/prada_pl/{page_hash}.html', 'w',
                   encoding='utf-8') as f:

@@ -1,5 +1,4 @@
 import base64
-import string
 import requests
 import datetime
 import pandas as pd
@@ -8,16 +7,13 @@ import concurrent.futures
 import re
 from queue import Queue
 import hashlib
-from dns.query import https
-from lxml import html
 import os
-import random
 import time
 import logging
 import argparse
 from dotenv import load_dotenv
 from lxml import html  # Or use parsel for Scrapy-like syntax
-# import orjson
+
 # Load environment variables
 load_dotenv()
 
@@ -109,11 +105,6 @@ def parse_material_data(html_content, description, data, materials_data,material
         if len(gemstones_found) > 1:
             result["gemstone_2"] = gemstones_found[1]
 
-        # Parse colors
-        # for color in materials_data["colors"]:
-        #     if color.lower() in (result["material"]).lower():
-        #         result["color"] = color
-
         # Update the data dictionary
         data.update(result)
 
@@ -122,11 +113,7 @@ def parse_material_data(html_content, description, data, materials_data,material
 
 
 def parse_data(response,link, materials_data, region,Description,materials,price,currency,img,product_name,color,size,sub_category):
-
     html_content = html.fromstring(response.text)
-    # structured_data = html_content.xpath(
-    #     '//script[contains(text(), "Product") and contains(text(), "@type")]/text()')
-    # structured_data = json.loads(structured_data[0]) if structured_data else {}
     store = link.split("pr/")[-1]  # Splitting at "pr"
     reference=store.split("-")[-1]
     if region.lower()!="cn":
@@ -145,47 +132,46 @@ def parse_data(response,link, materials_data, region,Description,materials,price
             'productReference': reference,
             'marketCode': marketcode,
         }
-        response1 = requests.post(f'https://www.brioni.com/api/v2/product-price', cookies=cookies, headers=headers,
-                                  json=json_data)
-        datas = response1.json()
-        # print(datas)
-        price = datas['final']['value']
-        currency = datas['currency']
-        # print(price,currency)
-        # print(price)
-        # sub_category = html_content.xpath('//script[contains(text(), "sub_category")]/text()')
-        # sub_category_ = ""
-        # if sub_category:
-        #     pattern = r'"sub_category":"([^"]+)"'
-        #     match = re.search(pattern, sub_category[0])
-        #     if match:
-        #         sub_category_ = match.group(1)
-        language = html_content.xpath(' // html / @ lang')[0]
-        # print(language,900*"0")
-        price = str(price)
-        price = price.split('.')[0]
-        data = {
-            'date': datetime.datetime.now().replace(microsecond=0).isoformat(),
-            'brand': 'BRIONI',
-            'category': 'JEWELRY',
-            'country': region.upper(),
-            'language': html_content.xpath('//html/@lang')[0] if html_content.xpath('//html/@lang') else '',
-            'product_url': link,
-            'product_name': product_name,
-            'product_code': reference,
-            'price': str(price).replace('.00', ''),
-            'currency': currency,
-            'sub_category':sub_category,
-            'color': color,
-            'product_image_url': f'https:{img}'.replace('",750','').replace('"',''),
-            'product_description_1': Description.replace("#39;","'")
-        }
-        parse_material_data(html_content, data['product_description_1'], data, materials_data, materials, region, size)
-        data_queue.put(data)
-    if region.lower()=="cn":
-        # language = html_content.xpath(' // html / @ lang')[0]
-        # # print(language,900*"0")
+        max_retries = 4
+        retry_delay = 1  # Initial delay in seconds
+        try:
+            for attempt in range(max_retries):
+                response1 = requests.post(f'https://www.brioni.com/api/v2/product-price', cookies=cookies, headers=headers,
+                                          json=json_data)
+                datas = response1.json()
+                price = datas['final']['value']
+                currency = datas['currency']
+                language = html_content.xpath(' // html / @ lang')[0]
+                price = str(price)
+                price = price.split('.')[0]
+                data = {
+                    'date': datetime.datetime.now().replace(microsecond=0).isoformat(),
+                    'brand': 'BRIONI',
+                    'category': 'JEWELRY',
+                    'country': region.upper(),
+                    'language': html_content.xpath('//html/@lang')[0] if html_content.xpath('//html/@lang') else '',
+                    'product_url': link,
+                    'product_name': product_name,
+                    'product_code': reference,
+                    'price': str(price).replace('.00', ''),
+                    'currency': currency,
+                    'sub_category':sub_category,
+                    'color': color,
+                    'product_image_url': f'https:{img}'.replace('",750','').replace('"',''),
+                    'product_description_1': Description.replace("#39;","'")
+                }
+                parse_material_data(html_content, data['product_description_1'], data, materials_data, materials, region, size)
+                data_queue.put(data)
+                break
+        except Exception as e:
+            logging.error(f"Attempt {attempt + 1} failed for {link}: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+                retry_delay *= 2  # Exponential backoff
+            else:
+                logging.error(f"All {max_retries} attempts failed for {link}. Giving up.")
 
+    if region.lower()=="cn":
         data = {
             'date': datetime.datetime.now().replace(microsecond=0).isoformat(),
             'brand': 'BRIONI',
@@ -205,31 +191,21 @@ def parse_data(response,link, materials_data, region,Description,materials,price
         parse_material_data(html_content, data['product_description_1'], data, materials_data, materials, region, size)
         data_queue.put(data)
 
-    # except Exception as e:
-    #     logging.error(f"Error parsing data: {e}")
-
 
 def fetch_product_data(link, token, cookies, materials_data, region):
-    # print(link,link,link,link,900*"{}[]()[]{}")
-
     max_retries = 4
     retry_delay = 1  # Initial delay in seconds
     for attempt in range(max_retries):
         try:
-
             response = requests.get(
                 url=link,
                 cookies=cookies,
                 headers=headers,
             )
-
             # Parse the response using lxml
             data=response.text
             if region.lower()=="cn":
-
-                # response = requests.get(link, cookies=cookies, headers=headers)
                 product_id = response.url.split('/')[-1]
-
                 pid = data.split(',0,"')[0]
                 pid = pid.split(',')[-1]
                 print(pid)
@@ -315,21 +291,16 @@ def fetch_product_data(link, token, cookies, materials_data, region):
                 print("Sub-category:", sub_category)
                 currency="CNY"
                 print(product_id)
-                # print(product_name)
                 print(color)
                 size=[]
                 image_url = data.split('],"http')[-1]
                 image_url = image_url.split(',"')[0]
                 image_url = f'http{image_url}'
-                # print(image_url)
-                # print("https" +image_url)
                 from parsel import Selector
                 html_content = response.text
                 selector = Selector(text=html_content)
                 nuxt_data = selector.xpath('//script[@id="__NUXT_DATA__"]/text()').get()
                 mfc_values1 = []
-                # mfc_values2 = []
-                # mfc_values3 = []
                 main1 = []
                 product_url_main = []
                 parsed_data = json.loads(nuxt_data)  # Convert to a Python object
@@ -338,60 +309,16 @@ def fetch_product_data(link, token, cookies, materials_data, region):
                     if isinstance(item, list):  # If item is a list
                         print()
                     elif isinstance(item, dict):  # If item is a dictionary
-                        # print("Dictionary Found:")
                         for key, value in item.items():
                             if key == 'content':
-                                # if key == 'productprice':
-                                #
-                                # print(f"{key}: {value}")  # Print extracted mfc value
                                 mfc_values1.append(value)
                                 print(mfc_values1)
-
-                                # print(80*"=",mfc_values,80*"=")# Store the extracted value
-                                # Retrieve values from parsed_data using extracted mfc indices
                     for mfc in mfc_values1:
-                        # if mfc < len(parsed_data):  # Ensure index is within range
                         value_at_index = parsed_data[mfc]  # Fetch corresponding value
-                        # print(f"mfc: {mfc}, Value: {value_at_index}")
                         if value_at_index not in main1:
                             main1.append(value_at_index)
                             print(main1)
-                # description = data.split(',"\\\\u003Cp>')[-1]
-                # description = description.split('\\u003C/p')[0]
-                # description = description.split('>')[-1]
-                # print(description)
-                #
-                # if not description:
-                #     description = data.split('。\\u003Cbr')[0]
-                #     description = description.split(',"')[-1]
-                #     print(description)
-                # if not description:
-                #     description = data.split(f'","{product_id}')[0]
-                #     description = description.split(',"')[-1]
-                #     print(description)
-
-                # print(description)
-
-
-                #
-                #
                 currency="CNY"
-                # print(product_id)
-                # # print(product_name)
-                # print(color)
-                # size="N/A"
-                # image_url = data.split('","http')[-1]
-                # image_url = "https" +image_url.split(',"')[0]
-                # # print(image_url)
-                # print("https" +image_url)
-                # description = data.split(',"\\\\u003Cp>')[-1]
-                # description = description.split('\\u003C/p')[0]
-                # description = description.split('>')[-1]
-                # print(description)
-                # print("=="*900,price,900*"==")
-                # print(title,link,color,size,image_url,description,product_id,price)
-
-
                 if response.status_code != 200:
                     raise Exception(f"HTTP Error: Status Code {response.status_code}")
 
@@ -411,8 +338,6 @@ def fetch_product_data(link, token, cookies, materials_data, region):
 
                 # Trim extra spaces and newlines
                 Description = cleaned_text.strip()
-                # def parse_data(response, link, materials_data, region, Description, materials,price, img, product_name, color,
-                #                size):
                 materials="N/A"
                 parse_data(response, link, materials_data, region, Description,materials, price,currency,image_url, title,color,size,sub_category)
                 break  # Exit the loop if successful
@@ -462,12 +387,8 @@ def fetch_product_data(link, token, cookies, materials_data, region):
                 Description = cleaned_text.strip().replace('#39;',"'")
 
                 print(Description)
-                # print(Description)
-
                 materials = data.split('\\"materials\\":[\\"')[-1]
                 materials = materials.split(': 100%\\"],')[0].strip()
-                # print("=="*980,materials,980*"==")
-
                 img = data.split(',\\"images\\":[{\\"src\\":\\"')[-1]
                 img = img.split('\\",\\"width\\"')[0].strip()
                 print(img)
@@ -485,8 +406,6 @@ def fetch_product_data(link, token, cookies, materials_data, region):
                 size2 = data.split('"defaultSize\\":{\\"label\\":\\"')[-1]
                 size2 = size2.split('\\",\\"value\\":\\')[0].strip()
                 size.append(size2)
-            # print(990*"-=-",script_content)
-            # logging.info(f"Attempt {attempt + 1}: Status Code: {response.status_code}")
                 if response.status_code != 200:
                     raise Exception(f"HTTP Error: Status Code {response.status_code}")
 
@@ -632,7 +551,6 @@ if __name__ == '__main__':
         # Ensure all required columns exist in DataFrame
         df = df.reindex(columns=desired_columns, fill_value="")
         df.rename(columns={"gemstone_1":"gemstone"},inplace=True)
-        # df['gemstone'] = []
         del df['gemstone_2']
         # Save as Excel
         df = df.fillna("")
@@ -643,16 +561,6 @@ if __name__ == '__main__':
         data = df.to_dict(orient='records')
         with open(f'{output_filename}.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
-        #
-        # # Convert to JSON and save
-        # data = df.to_dict(orient='records')
-        # # print(800*"==",data,"=="*800)
-        # if region.lower()=="cn":
-        #     with open(f'{output_filename}.json', 'a', encoding='utf-8') as f:
-        #         json.dump(data, f, ensure_ascii=False, indent=4)
-        # else:
-        #     with open(f'{output_filename}.json', 'w', encoding='utf-8') as f:
-        #         json.dump(data, f, ensure_ascii=False, indent=4)
 
         logging.info(f"Data saved to {output_filename}.xlsx and {output_filename}.json")
     except Exception as e:

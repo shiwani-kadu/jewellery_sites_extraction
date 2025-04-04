@@ -1,5 +1,3 @@
-import string
-# from curl_cffi import requests
 import requests
 import datetime
 import pandas as pd
@@ -10,7 +8,6 @@ from queue import Queue
 import hashlib
 from lxml import html
 import os
-import random
 import time
 import logging
 import argparse
@@ -276,7 +273,6 @@ def parse_data(response, materials_data,region,link):
             category = ''
             product_name = html_content.xpath('//div[contains(@class,"component__name")]//text()')[0].strip()
             language = html_content.xpath('//html/@lang')[0].split('-')[0]
-            # language = '中文（简体)'
             category_type_list = ['戒指','耳环','项链','手镯','手链','bracelet','necklace','ring','earring']
             sub_category = ''
             for c in category_type_list:
@@ -294,7 +290,6 @@ def parse_data(response, materials_data,region,link):
                 size_list = [item.strip().rstrip() + '\n' if item.endswith('\n') else item.strip() for item in
                                 size_list]
         else:
-            # variant_urls = html_content.xpath('//ul[contains(@class,"m-selector__list")]/li[contains(@data-gtm-variant-choice,"Color")]/a/@href')
             structured_data = html_content.xpath('//script[@type="application/ld+json"]/text()')
             structured_data = json.loads(structured_data[0]) if structured_data else {}
 
@@ -311,7 +306,6 @@ def parse_data(response, materials_data,region,link):
             details_data = html_content.xpath('//button[contains(text(),"DETAILS")]/following-sibling::div//p//text()')
             if not details_data:
                 details_data = html_content.xpath('//button[contains(text(),"DETAILS")]/following-sibling::div/div/div//text()')
-            # details_data = ' '.join(details_data)
             pdp_data = structured_data.get('@graph',[])
             price = ""
             currency = ""

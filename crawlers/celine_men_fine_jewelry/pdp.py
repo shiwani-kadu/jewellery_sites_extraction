@@ -1,5 +1,3 @@
-import string
-# from curl_cffi import requests
 import requests
 import datetime
 import pandas as pd
@@ -10,7 +8,6 @@ from queue import Queue
 import hashlib
 from lxml import html
 import os
-import random
 import time
 import logging
 import argparse
@@ -86,8 +83,6 @@ def get_response(region,link,attempt):
         f"{link}",
         headers=headers,
         cookies=cookies, )
-    # impersonate=random.choice(browser_versions)
-
     logging.info(f"Attempt {attempt + 1}: Status Code: {response.status_code}")
     if response.status_code != 200:
         raise Exception(f"HTTP Error: Status Code {response.status_code}")
@@ -177,7 +172,6 @@ def parse_material_data(product_name, description, data, materials_data, region,
                     if re.fullmatch(r"\d+(\.\d+)?", clean_match):
                         try:
                             num = clean_match  # Convert to float
-                            # num = float(clean_match)  # Convert to float
                             numbers.append(num)
                         except ValueError:
                             continue  # Skip invalid values
@@ -262,7 +256,6 @@ def parse_data(response, materials_data,region,link):
             for s in content_des:
                 if "编号" in s:
                     sku = s.split('：')[-1].strip()
-            # image_url = html_content.xpath('//li[contains(@id,"products-image")]/button//div/img/@src')
             image_url = html_content.xpath('//div/@data-pswp-src')[0]
             description = html_content.xpath('//div[contains(@class,"item-shortDesc")]/following-sibling::div//div[contains(@class,"content__desc")]/text()')
             if description != []:

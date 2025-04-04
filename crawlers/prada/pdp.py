@@ -4,7 +4,6 @@ import pandas as pd
 import json
 import concurrent.futures
 import re
-import hashlib
 from queue import Queue
 from lxml import html
 import os
@@ -161,20 +160,10 @@ def parse_material_data(html_content, description, data, materials_data, region,
             gem_stone_list.extend({gems.strip(): None} for gems in gemstones_found)
             result["gemstone"] = gem_stone_list
 
-        # if len(gemstones_found) > 0:
-        #     result["gemstone_1"] = gemstones_found[0]
-        # if len(gemstones_found) > 1:
-        #     result["gemstone_2"] = gemstones_found[1]
-
         color = []
         colorData = structured_data.get('colors', '')
         color.append(colorData)
         result["color"] = color
-        # color = html_content.xpath("//p[@class='inline relative w-full ml-sp-8 text-paragraph-medium font-normal lg:text-paragraph-small']/text()")
-        # if color:
-        #     result["color"] = color[0]
-        # else:
-        #     result["color"] = ""
 
         # Update the data dictionary
         data.update(result)
@@ -290,9 +279,7 @@ def parse_data(response, materials_data, region):
                 'currency': currency if currency else '',
                 'subcategory': sub_category_,
                 'product_image_url': product_image_url,
-                # 'product_description_1': product_description_1,
                 'product_description_1': description,
-                # 'product_description_2': product_description_2,
                 'product_description_2': '',
                 'product_description_3': ''
             }
@@ -343,12 +330,6 @@ def fetch_product_data(link, token, cookies, materials_data, region):
             logging.info(f"Attempt {attempt + 1}: Status Code: {response.status_code}")
             if response.status_code != 200:
                 raise Exception(f"HTTP Error: Status Code {response.status_code}")
-
-            # page_hash = hashlib.sha256(link.encode()).hexdigest()
-            # os.makedirs(f'../../pages/{datetime.datetime.today().strftime("%Y%m%d")}/prada', exist_ok=True)
-            # with open(f'../../pages/{datetime.datetime.today().strftime("%Y%m%d")}/prada/{page_hash}.html', 'w',
-            #           encoding='utf-8') as f:
-            #     f.write(response.text)
 
             product_code = parse_data(response, materials_data, region)
 

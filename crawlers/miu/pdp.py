@@ -1,4 +1,3 @@
-import string
 from curl_cffi import requests
 import datetime
 import pandas as pd
@@ -88,10 +87,6 @@ def parse_material_data(html_content, description, data, materials_data, region)
     }
 
     try:
-        # pattern = r"(?<=sizes\s)(\S+)"
-        # match = re.search(pattern, data['product_description_1'])
-        # if match:
-        #     result["size"] = match.group(1)
 
         p_size = html_content.xpath('//p[contains(text(),"Select size")]/../following-sibling::div//button/div/text()')
         if not p_size:
@@ -368,7 +363,6 @@ def load_cookies(region):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Scrape product data from MiuMiu.")
     parser.add_argument("--region", required=True, help="Region code (e.g., 'cn')")
-    # parser.add_argument("--region", default='kr', help="Region code (e.g., 'cn')")
     args = parser.parse_args()
 
     # Validate input files

@@ -6,7 +6,6 @@ import random
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 from curl_cffi import requests
-from lxml import html
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 import time

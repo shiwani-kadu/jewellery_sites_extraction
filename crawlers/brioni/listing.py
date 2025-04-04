@@ -2,7 +2,6 @@ import argparse
 import json
 import logging
 import os
-import random
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 import requests
@@ -28,7 +27,6 @@ BROWSER_VERSIONS = [
     "chrome99_android", "edge99", "edge101", "safari15_3", "safari15_5",
     "safari17_0", "safari17_2_ios"
 ]
-# data = '{"requests":[{"indexName":"live_primary_index_products_hong-kong_en","params":"clickAnalytics=true&facets=%5B%22colors.value%22%2C%22hierarchicalCategories.lvl1.value%22%2C%22sizes.valueWithClassAndSubDepartment%22%5D&filters=available%3Atrue%20%20AND%20%20hierarchicalCategories.lvl0.value%3A%22Jewellery%7C%7Ccategory___jewellery%22&highlightPostTag=__%2Fais-highlight__&highlightPreTag=__ais-highlight__&hitsPerPage=12&maxValuesPerFacet=100&page=0&query="}]}'
 
 HEADERS= {
     'Accept': '*/*',
@@ -83,8 +81,6 @@ def load_cookies(region):
         Exception: If there is an error during file reading or JSON parsing.
     """
     try:
-        # "D:/brioni (1)/brioni/jewellery_sites_extraction/configs/cookies/brioni.json"
-        # with open('D:/live_project/brioni/jewellery_sites_extraction/configs/cookies/brioni.json', 'r') as f:
         with open('../../configs/cookies/brioni.json', 'r') as f:
             cookies = json.load(f)
             return cookies.get(region, {})
@@ -138,7 +134,6 @@ def parse_links(response, data_list, b_url,region):
     """
     try:
         json_data = response.json()
-        # print(json_data)
         json_data=json_data['results'][0]
         for j in json_data['hits']:
             slug=j['slug']
@@ -152,20 +147,9 @@ def parse_links(response, data_list, b_url,region):
                 regions="hk"
             elif region.lower() == "fr":
                 regions="fr"
-            # elif region.lower() == "cn":
-            #     regions=""
             elif region.lower() == "jp":
                 regions="jp"
             data_list.append(f"https://www.brioni.com/en/{regions}/pr/"+slug)
-            # print(data_list)
-        # html_content = html.fromstring(json_
-        # .get('productListPage', ''))
-        # links = response.xpath('//div[@class="style_product-card__RRVVb  style_with-hover-image__M0Zv_  "]/a/@href | //div[@class="flex flex-col items-start justify-between"]/a/@href').getall()
-        # if response.xpath('//div[@class="flex flex-col items-start justify-between"]/a/@href'):
-        #     links = [b_url + link for link in links]
-        # else:
-        #     links = [b_url + link for link in links]
-        # return bool(json_data.get('next'))
     except Exception as e:
         logging.error(f"Error parsing links: {e}")
         return False
@@ -235,12 +219,6 @@ def process_url(base_url, token, cookies, headers, region):
 
         # Extract the script tag content
         script_content = tree.xpath('//script[@id="__NUXT_DATA__"]/text()')
-        # print(script_content)
-        # product_urls=[]
-        # json_data=script_content[0]
-        #
-        # json_data=json.loads(json_data)
-        # data_value=json_data['data']
         mfc_values = []
         main=[]
         product_url_main=[]
@@ -252,79 +230,22 @@ def process_url(base_url, token, cookies, headers, region):
                 if isinstance(item, list):  # If item is a list
                     print()
                 elif isinstance(item, dict):  # If item is a dictionary
-                    # print("Dictionary Found:")
                     for key, value in item.items():
                         if key == 'mfc':
-                            # print(f"{key}: {value}")  # Print extracted mfc value
                             mfc_values.append(value)
-                            # print(80*"=",mfc_values,80*"=")# Store the extracted value
-
                     # Retrieve values from parsed_data using extracted mfc indices
                 for mfc in mfc_values:
-                    # if mfc < len(parsed_data):  # Ensure index is within range
                     value_at_index = parsed_data[mfc]  # Fetch corresponding value
-                    # print(f"mfc: {mfc}, Value: {value_at_index}")
                     if value_at_index not in main:
                         main.append(value_at_index)
-        # print(main)
             for check in main:
-                # print(check)
                 product_url_main.append("https://www.brioni.cn/pr/"+check)
-            # print(product_url_main)
             try:
                 output_file = f'../../input_files/listing/brioni_links_{region}.json'
                 with open(output_file, 'w') as f:
                     json.dump(product_url_main, f, indent=4)
-
-                # logging.info(f"Saved {len(product_url_main)} links to {output_file}")
             except Exception as e:
                 logging.error(f"Error saving links to file: {e}")
-                        # else:
-                        #     print(f"mfc: {mfc} is out of range in parsed_data")
-
-                    # for key, value in item.items():
-                    #     # print(f"{key}: {value}")
-                    #     if key=='mfc':
-                    #         # print(f"{key}: {value}")
-                    #         for index,ans in parsed_data.enumerate():
-                    #             if index==320:
-                    #                 print(ans)
-                            # print(item[value])
-                            # if str(value) in item:  # Convert to string for key lookup
-                            #     print(f"{value}: {item[str(value)]}")
-
-        # else:
-        #     print("No matching script found")
-        # print("="*100,data_value)
-        # for i in script_content:
-            # print(980*"-",script_content['1'],980*"-")
-            # print(i)
-            # if "mfc" in i:
-            #     store=i["mfc"]
-            #     # print(store,500*"<>")
-            #     product_urls.append("https://www.brioni.cn/pr/"+i[store])
-            # print(product_urls)
-        # try:
-        #     output_file = f'../../input_files/listing/brioni_links_{region}.json'
-        #     with open(output_file, 'w') as f:
-        #         json.dump(product_urls, f, indent=4)
-        #
-        #     logging.info(f"Saved {len(product_urls)} links to {output_file}")
-        # except Exception as e:
-        #     logging.error(f"Error saving links to file: {e}")
-
-        # for i in response.xpath('//div[@class="flex flex-col items-start justify-between"]/a'):
-        #     product_url.append("https://www.brioni.cn/"+i.xpath("/@href").get())
-        # try:
-        #     output_file = f'../../input_files/listing/brioni_links_cn.json'
-        #     with open(output_file, 'w') as f:
-        #         json.dump(product_url, f, indent=4)
-        #
-        #     logging.info(f"Saved {len(product_url)} links to {output_file}")
-        # except Exception as e:
-        #     logging.error(f"Error saving links to file: {e}")
-
-
     elif region.lower()=="jp":
         data = '{"requests":[{"indexName":"live_primary_index_products_tokyo_en","params":"clickAnalytics=true&facets=%5B%22colors.value%22%2C%22hierarchicalCategories.lvl1.value%22%2C%22sizes.valueWithClassAndSubDepartment%22%5D&filters=available%3Atrue%20%20AND%20%20hierarchicalCategories.lvl0.value%3A%22Jewellery%7C%7Ccategory___jewellery%22&highlightPostTag=__%2Fais-highlight__&highlightPreTag=__ais-highlight__&hitsPerPage=12&maxValuesPerFacet=100&page=0&query="}]}'
 
@@ -355,16 +276,14 @@ def process_url(base_url, token, cookies, headers, region):
     if region.lower()!="cn":
         while True:
             target_url = urllib.parse.quote(f"{base_url}?requestType=ajax&page={page}")
-            api_url = f"http://api.scrape.do?token={token}&url={target_url}"
-            impersonate_version = random.choice(BROWSER_VERSIONS)
-
-            response = requests.post(
-                'https://wnp6tqnc8r-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20JavaScript%20(4.24.0)%3B%20Browser%20(lite)%3B%20instantsearch.js%20(4.73.0)%3B%20react%20(18.3.0-canary-0c6348758-20231030)%3B%20react-instantsearch%20(7.12.0)%3B%20react-instantsearch-core%20(7.12.0)%3B%20next.js%20(14.0.1)%3B%20JS%20Helper%20(3.22.2)&x-algolia-api-key=4e36de8bb30642db2d0fdd7244874d3e&x-algolia-application-id=WNP6TQNC8R',
-                headers=headers,
-                data=data,
-            )
-            # logging.info(f"{target_url}: {response.status_code}")
-
+            try:
+                response = requests.post(
+                    'https://wnp6tqnc8r-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20JavaScript%20(4.24.0)%3B%20Browser%20(lite)%3B%20instantsearch.js%20(4.73.0)%3B%20react%20(18.3.0-canary-0c6348758-20231030)%3B%20react-instantsearch%20(7.12.0)%3B%20react-instantsearch-core%20(7.12.0)%3B%20next.js%20(14.0.1)%3B%20JS%20Helper%20(3.22.2)&x-algolia-api-key=4e36de8bb30642db2d0fdd7244874d3e&x-algolia-application-id=WNP6TQNC8R',
+                    headers=headers,
+                    data=data,
+                )
+            except:
+                pass
             if not response:
                 break
             parser = argparse.ArgumentParser(description="Scrape product links from brioni.")
@@ -448,8 +367,6 @@ def main():
         else:
             with open(output_file, 'w') as f:
                 json.dump(all_links, f, indent=4)
-
-        # logging.info(f"Saved {len(all_links)} links to {output_file}")
     except Exception as e:
         logging.error(f"Error saving links to file: {e}")
 

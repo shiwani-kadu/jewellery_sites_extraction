@@ -1,5 +1,3 @@
-import string
-# from curl_cffi import requests
 import requests
 import datetime
 import pandas as pd
@@ -10,7 +8,6 @@ from queue import Queue
 import hashlib
 from lxml import html
 import os
-import random
 import time
 import logging
 import argparse
@@ -535,7 +532,6 @@ if __name__ == '__main__':
     except Exception as e:
         logging.error(f"Error loading links: {e}")
         exit(1)
-    # links = links[0]
     token = os.environ.get("scrapedo_token")
     if not token:
         logging.error("API token not found in environment variables.")

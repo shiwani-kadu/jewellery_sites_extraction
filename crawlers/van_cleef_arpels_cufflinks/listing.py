@@ -3,11 +3,8 @@ import json
 import logging
 import os
 import random
-import urllib.parse
 from concurrent.futures import ThreadPoolExecutor
-# from curl_cffi import requests
 import requests
-from lxml import html
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 import time
@@ -270,7 +267,6 @@ def main():
         return
 
     # Multithreading to process URLs concurrently
-    # input_urls = input_urls[f'{args.region}']
     all_links = []
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = [

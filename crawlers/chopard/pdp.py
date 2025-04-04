@@ -1,7 +1,3 @@
-import string
-from urllib.parse import urljoin
-
-import numpy as np
 from curl_cffi import requests
 import datetime
 import pandas as pd
@@ -17,9 +13,6 @@ import time
 import logging
 import argparse
 from dotenv import load_dotenv
-import html as python_html
-
-from sqlalchemy_utils.types.color import colour
 
 # Load environment variables
 load_dotenv()
@@ -68,7 +61,7 @@ def clean_text(text):
     return text
 
 
-def parse_material_data(html_content, data, category_list, description, materials_data, region):
+def parse_material_data(html_content, data, category_list, description, materials_data_json, region):
     """
     Parses the material-related information from HTML content and updates the provided data dictionary.
 
@@ -134,134 +127,9 @@ def parse_material_data(html_content, data, category_list, description, material
         else:
             result["size"] = list()
 
-        metals = [
-            "Platinum",
-            "Rose Gold",
-            "Sterling Silver",
-            "White Gold",
-            "Yellow Gold",
-            "Gold",
-            "Silver",
-
-            "Or blanc",
-            "Or jaune",
-            "OR BEIGE",
-            "Or rose",
-
-            "BEIGEGOLD",
-            "Weißgold",
-            "Rotgold",
-
-            "金",
-
-            "핑크 골드",
-            "화이트 골드",
-            "핑크 골드",
-
-            "铂金",
-            "玫瑰金",
-            "纯银",
-            "白金",
-            "黄金",
-            "プラチナ",
-            "ピンクゴールド",
-            "ホワイトゴールド",
-            'ピンクゴールド',
-            "ピングゴールド",
-            'ブラックゴールド',
-            "キングゴールド",
-            'ホワイトゴールド'
-        ]
-        colors = [
-            "Yellow",
-            "Rose",
-            "Red",
-            "White",
-            "Black",
-            "Blue",
-            "Red",
-            "Green",
-            "Pink",
-            "Peach",
-
-            "Blanc",
-            "Jaune",
-            "rouge",
-            "verte",
-            "bleue",
-            "noire",
-
-            "Weiß",
-            "Gelb",
-            "Rot",
-
-            "黄",
-            "玫瑰",
-            "玫",
-            "白",
-
-            "핑크",
-            "화이트",
-            "핑크",
-            "ピンク",
-            "ホワイト",
-            "ピング",
-            "ブラック",
-            "ローズ",
-            "イエロー",
-            "ブルー",
-            "なホワイト",
-
-        ]
-        stones = [
-            "Emeralds",
-            "Emerald",
-            "HyCeram",
-            "Jade",
-            "Mother of Pearl",
-            "Onyx",
-            "Pink Opal",
-            "Red Agate",
-            "Ruby",
-            "Sapphire",
-            "Malachite",
-            "Black Ceramic",
-            "Turquoise",
-            "Carnelian",
-
-            "rubis",
-            "céramique noire",
-
-            "schwarze Keramik",
-            "Rubin",
-            "镶嵌红宝石",
-            "黑色陶瓷",
-
-            "블랙 세라믹",
-            "루비로",
-
-            "蓝宝石",
-            "祖母绿",
-            "翡翠",
-            "珍珠母贝",
-            "缟玛瑙",
-            "蛋白石",
-            "红玛瑙",
-            "红宝石",
-
-            "ルビー",
-            "エメラルド",
-            "マラカイト",
-            "カーネリアン",
-            "やルビー",
-            "ブラックセラミック",
-            "ターコイズ",
-            "サファイア",
-            "카넬리안",
-            "공작석",
-            "블랙 세라믹",
-            "터키 옥"
-        ]
+        metals = materials_data_json['metals']
+        colors = materials_data_json['colors']
+        stones = materials_data_json['stones']
 
         if material_data:
             try:
@@ -668,9 +536,9 @@ if __name__ == '__main__':
 
     # Save the data to Excel and JSON files
     try:
-        output_filepath = f'../../output_files/chopard'
-        output_filename = output_filepath + f'/chopard_product_{args.region}_{datetime.datetime.today().strftime("%Y%m%d")}'
-        os.makedirs(output_filepath, exist_ok=True)
+        output_folder = '../../output_files/chopard/'
+        os.makedirs(output_folder, exist_ok=True)  # ✅ Ensure directory exists
+        output_filename = f'../../output_files/chopard/chopard_product_{args.region}_{datetime.datetime.today().strftime("%Y%m%d")}'
         df = pd.DataFrame(data_list)
         desired_columns = [
             "date",
