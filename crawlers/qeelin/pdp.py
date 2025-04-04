@@ -322,6 +322,7 @@ if __name__ == '__main__':
     # Save the data to Excel and JSON files
     try:
         output_filename = f'../../output_files/qeelin/qeelin_products_{args.region}_{datetime.datetime.today().strftime("%Y%m%d")}'
+        os.makedirs(f'../../output_files/qeelin/',exist_ok=True)
         df = pd.DataFrame(data_list)
         desired_columns = [
             "date",

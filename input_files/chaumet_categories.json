@@ -1,0 +1,38 @@
+{
+  "us": [
+    "https://www.chaumet.com/us_en/jewellery/collections"
+  ],
+  "uk": [
+    "https://www.chaumet.com/gb_en/jewellery/collections"
+  ],
+  "au": [
+    "https://www.chaumet.com/au_en/jewellery/collections"
+  ],
+  "sg": [
+    "https://www.chaumet.com/sg_en/jewellery/collections"
+  ],
+  "hk": [
+    "https://www.chaumet.com/hk_en/jewellery/collections"
+  ],
+  "ae": [
+    "https://www.chaumet.com/ae_en/jewellery/collections"
+  ],
+  "fr": [
+    "https://www.chaumet.com/fr_en/jewellery/collections"
+  ],
+  "ch": [
+    "https://www.chaumet.com/ch_en/jewellery/collections"
+  ],
+  "cn": [
+    "https://www.chaumet.cn/cn_zh/jewellery/collections"
+  ],
+  "tw": [
+    "https://www.chaumet.com/tw_en/jewellery/collections"
+  ],
+  "jp": [
+    "https://www.chaumet.com/jp_en/jewellery/collections"
+  ],
+  "kr": [
+    "https://www.chaumet.com/kr_en/jewellery/collections"
+  ]
+}

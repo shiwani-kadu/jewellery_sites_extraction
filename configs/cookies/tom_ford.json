@@ -1,0 +1,92 @@
+{
+    "us": {
+        "dwanonymous_5b9ab30ee20effb1a902cc3794092888": "abh8Irvg57eWyxy9gDjJbfGQfI",
+        "GlobalE_Data": "%7B%22countryISO%22%3A%22US%22%2C%22cultureCode%22%3A%22en-US%22%2C%22currencyCode%22%3A%22USD%22%2C%22apiVersion%22%3A%222.1.4%22%7D",
+        "GlobalE_Geo_Popup": "true",
+        "_gcl_au": "1.1.1165006683.1742889177",
+        "__cq_uuid": "abh8Irvg57eWyxy9gDjJbfGQfI",
+        "checkout_continuity_service": "64f8ed60-8a54-4dcb-a405-8e243888b6e6",
+        "tracker_device": "64f8ed60-8a54-4dcb-a405-8e243888b6e6",
+        "_ga": "GA1.1.1131149030.1742889179",
+        "_fbp": "fb.1.1742889179160.394646461235288774",
+        "bluecoreNV": "false",
+        "OptanonAlertBoxClosed": "2025-03-26T09:30:37.605Z",
+        "__cq_bc": "%7B%22bkft-tomford%22%3A%5B%7B%22id%22%3A%22JM0070U-G18YO%22%2C%22sku%22%3A%221335289461%22%7D%2C%7B%22id%22%3A%22JM005-ICL002G%22%7D%2C%7B%22id%22%3A%22JW026-AMT001X%22%2C%22sku%22%3A%225689657953%22%7D%5D%7D",
+        "GlobalE_Welcome_Data": "%7B%22showWelcome%22%3Afalse%7D",
+        "dwac_6f2238d52d8974f92a11db3d39": "rWxS7RQ7tDUHg5_uUj9irlVPZhJ0ai16heY%3D|dw-only|||USD|false|America%2FNew%5FYork|true",
+        "cqcid": "abh8Irvg57eWyxy9gDjJbfGQfI",
+        "cquid": "||",
+        "sid": "rWxS7RQ7tDUHg5_uUj9irlVPZhJ0ai16heY",
+        "__cq_dnt": "0",
+        "dw_dnt": "0",
+        "dwsid": "d6AJ8icQf1db5rcNFG1V_o-DPQ1HQeYY2YNdRATkLjZgAgTm1JxAcm2H7FGnpLJy-Se3E4yUflZBm-lk6GYqng==",
+        "__cq_seg": "0~0.26!1~-0.68!2~-0.18!3~0.46!4~-0.17!5~0.04!6~0.12!7~-0.23!8~-0.33!9~-0.14",
+        "GlobalE_Full_Redirect": "false",
+        "bc_invalidateUrlCache_targeting": "1743073738958",
+        "GlobalE_CT_Data": "%7B%22CUID%22%3A%7B%22id%22%3A%22401087237.456504002.1837%22%2C%22expirationDate%22%3A%22Thu%2C%2027%20Mar%202025%2011%3A39%3A01%20GMT%22%7D%2C%22CHKCUID%22%3Anull%2C%22GA4SID%22%3A117006836%2C%22GA4TS%22%3A1743073741378%2C%22Domain%22%3A%22www.tomfordfashion.com%22%7D",
+        "mp_tom_ford_us_mixpanel": "%7B%22distinct_id%22%3A%20%22195cc4a50a5183-0d991d56a88621-26011d51-100200-195cc4a50a6607%22%2C%22bc_persist_updated%22%3A%201742889177256%7D",
+        "_ga_Z46QV8Q8M8": "GS1.1.1743073739.9.1.1743073781.18.0.0",
+        "_uetsid": "2b8c5aa0094e11f0ac0d77a903ca45e0",
+        "_uetvid": "2b8cd400094e11f084986f2a0cc3508c",
+        "OptanonConsent": "isGpcEnabled=0&datestamp=Thu+Mar+27+2025+16%3A39%3A41+GMT%2B0530+(India+Standard+Time)&version=202404.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&genVendors=&landingPath=NotLandingPage&groups=C0004%3A1%2CC0003%3A1%2CC0002%3A1%2CC0001%3A1&AwaitingReconsent=false&geolocation=IN%3BGJ"
+    },
+    "uk": {
+        "GlobalE_Data": "%7B%22countryISO%22%3A%22GB%22%2C%22cultureCode%22%3A%22en-GB%22%2C%22currencyCode%22%3A%22GBP%22%2C%22apiVersion%22%3A%222.1.4%22%7D",
+        "dwanonymous_a2f35594749bc0a7b564f41a60e4b44a": "ac4aiG8r2zDGiw2PIKc2abVjmS",
+        "_gcl_au": "1.1.1994813435.1742896605",
+        "__cq_uuid": "abh8Irvg57eWyxy9gDjJbfGQfI",
+        "GlobalE_Geo_Popup": "true",
+        "_ga": "GA1.1.1945736496.1742896608",
+        "_fbp": "fb.2.1742896608296.250572828128873239",
+        "OptanonAlertBoxClosed": "2025-03-25T10:03:22.956Z",
+        "__cq_bc": "%7B%22bkft-tomforduk%22%3A%5B%7B%22id%22%3A%22JM006-AMT001X%22%2C%22sku%22%3A%225221228657%22%7D%2C%7B%22id%22%3A%22JM012-AMT001S%22%2C%22sku%22%3A%225595525876%22%7D%2C%7B%22id%22%3A%22JM014-AMT001X%22%7D%2C%7B%22id%22%3A%22JM001-ICL001G%22%7D%5D%7D",
+        "bluecoreNV": "false",
+        "GlobalE_Welcome_Data": "%7B%22showWelcome%22%3Afalse%7D",
+        "dwac_8a7bcdacd28628cbca0d40b6e1": "p9EGYqSTUXpHkCH__GUMoFy5sZhdY8uaw2w%3D|dw-only|||GBP|false|Etc%2FGreenwich|true",
+        "cqcid": "ac4aiG8r2zDGiw2PIKc2abVjmS",
+        "cquid": "||",
+        "sid": "p9EGYqSTUXpHkCH__GUMoFy5sZhdY8uaw2w",
+        "__cq_dnt": "0",
+        "dw_dnt": "0",
+        "dwsid": "WKwhUK_H7ViFMDKeCsGZRaPElqpWN3e4AczTjxExoc1aFLVZv2nYIY5-ScwDCUxB5rmWxE3ja3uxERPjxCGPWA==",
+        "GlobalE_Full_Redirect": "false",
+        "OptanonConsent": "isGpcEnabled=0&datestamp=Thu+Mar+27+2025+16%3A42%3A07+GMT%2B0530+(India+Standard+Time)&version=202404.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&genVendors=&landingPath=NotLandingPage&groups=C0004%3A1%2CC0003%3A1%2CC0002%3A1%2CC0001%3A1&AwaitingReconsent=false&geolocation=IN%3BGJ",
+        "mp_tom_ford_uk_mixpanel": "%7B%22distinct_id%22%3A%20%22195ccbbaf7c277-0eaa9491913f3c-26011d51-100200-195ccbbaf7d538%22%2C%22bc_persist_updated%22%3A%201742896607103%7D",
+        "bc_invalidateUrlCache_targeting": "1743073927625",
+        "_uetsid": "1c1699400a2f11f0ad5205a4dd0cde78",
+        "_uetvid": "77b12500095f11f0b6820b6560dc893c",
+        "_ga_6ED28TKB58": "GS1.1.1743073712.7.1.1743073928.59.0.0",
+        "__cq_seg": "0~-0.33!1~0.53!2~0.58!3~0.01!4~0.26!5~0.12!6~-0.23!7~0.06!8~-0.37!9~-0.07!f0~15~9!n0~2",
+        "GlobalE_CT_Data": "%7B%22CUID%22%3A%7B%22id%22%3A%22773315202.643557611.1837%22%2C%22expirationDate%22%3A%22Thu%2C%2027%20Mar%202025%2011%3A42%3A09%20GMT%22%7D%2C%22CHKCUID%22%3Anull%2C%22GA4SID%22%3A454559627%2C%22GA4TS%22%3A1743073929404%2C%22Domain%22%3A%22www.tomfordfashion.co.uk%22%7D"
+    },
+    "au": {
+
+    },
+    "sg": {
+
+    },
+    "hk": {
+
+    },
+    "ae": {
+
+    },
+    "fr": {
+
+    },
+    "ch": {
+
+    },
+    "cn": {
+
+    },
+    "tw": {
+
+    },
+    "jp": {
+
+    },
+    "kr": {
+
+    }
+}

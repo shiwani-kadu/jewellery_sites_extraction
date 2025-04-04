@@ -1,0 +1,58 @@
+{
+    "us": [
+        "https://www.prada.com/us/en/womens/accessories/jewels/c/10621US",
+        "https://www.prada.com/us/en/mens/accessories/jewels/c/10622US",
+        "https://www.prada.com/us/en/fine-jewelry/fine-jewelry-collection/c/10628US"
+    ],
+    "uk": [
+        "https://www.prada.com/gb/en/womens/accessories/jewels/c/10621EU",
+        "https://www.prada.com/gb/en/mens/accessories/jewels/c/10622EU",
+        "https://www.prada.com/gb/en/fine-jewelry/fine-jewelry-collection/c/10628EU"
+    ],
+    "au": [
+        "https://www.prada.com/au/en/womens/accessories/jewels/c/10621AU",
+        "https://www.prada.com/au/en/mens/accessories/jewels/c/10622AU"
+    ],
+    "sg": [
+        "https://www.prada.com/sg/en/womens/accessories/jewels/c/10621SG",
+        "https://www.prada.com/sg/en/mens/accessories/jewels/c/10622SG"
+    ],
+    "hk": [
+        "https://www.prada.com/hk/en/womens/accessories/jewels/c/10621HK",
+        "https://www.prada.com/hk/en/mens/accessories/jewels/c/10622HK"
+    ],
+    "ae": [
+        "https://www.prada.com/ae/en/womens/accessories/jewels/c/10621AE",
+        "https://www.prada.com/ae/en/mens/accessories/jewels/c/10622AE",
+        "https://www.prada.com/ae/en/fine-jewelry/fine-jewelry-collection/c/10628AE"
+    ],
+    "fr": [
+        "https://www.prada.com/fr/en/womens/accessories/jewels/c/10621EU",
+        "https://www.prada.com/fr/en/mens/accessories/jewels/c/10622EU",
+        "https://www.prada.com/fr/en/fine-jewelry/fine-jewelry-collection/c/10628EU"
+    ],
+    "ch": [
+        "https://www.prada.com/ch/en/womens/accessories/jewels/c/10621EU",
+        "https://www.prada.com/ch/en/mens/accessories/jewels/c/10622EU",
+        "https://www.prada.com/ch/en/fine-jewelry/fine-jewelry-collection/c/10628EU"
+    ],
+    "cn": [
+        "https://www.prada.com/cn/en/womens/accessories/jewels/c/10621CN",
+        "https://www.prada.com/cn/en/mens/accessories/jewels/c/10622CN",
+        "https://www.prada.com/cn/en/fine-jewelry/fine-jewelry-collection/c/10628CN"
+    ],
+    "tw": [
+        "https://www.prada.com/tw/en/womens/accessories/jewels/c/10621TW",
+        "https://www.prada.com/tw/en/mens/accessories/jewels/c/10622TW"
+    ],
+    "jp": [
+        "https://www.prada.com/jp/en/womens/accessories/jewels/c/10621JP",
+        "https://www.prada.com/jp/en/mens/accessories/jewels/c/10622JP",
+        "https://www.prada.com/jp/en/fine-jewelry/fine-jewelry-collection/c/10628JP"
+    ],
+    "kr": [
+        "https://www.prada.com/kr/en/womens/accessories/jewels/c/10621KR",
+        "https://www.prada.com/kr/en/mens/accessories/jewels/c/10622KR",
+        "https://www.prada.com/kr/en/fine-jewelry/fine-jewelry-collection/c/10628KR"
+    ]
+}
